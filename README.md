@@ -17,22 +17,47 @@ The application consists of two main components that work together:
 1.  **Frontend (`agent_suite_frontend/`)**: A static web application built with HTML, CSS, and JavaScript. It provides the user interfaces for listing agents, chatting, and uploading documents. It communicates with the backend via REST API calls.
 2.  **Backend (`agent_suite_backend/`)**: A Python application built with FastAPI. It hosts the AI agents, manages connections to data sources (PostgreSQL, ChromaDB), and exposes the agent functionalities through a series of API endpoints.
 
+## Backend Project Structure
+
+## Frontend-Backend Communication
+
+The frontend and backend operate as separate applications that communicate over the network using HTTP requests. This is a standard client-server architecture.
+
+*   **Client (Frontend)**: The frontend is a collection of static files (HTML, CSS, JavaScript) served from a simple web server (e.g., on `http://localhost:9000`). User interactions in the browser trigger JavaScript functions.
+
+
+*   **API Calls**: The JavaScript files (e.g., `app.js`, `jobplacement_chat.js`) use the browser's built-in `fetch` API to send requests to the backend. The backend API URLs are hardcoded in these files, for example:
+    ```javascript
+    const API_URL = 'http://127.0.0.1:8000/api/jobplacement_rag/chat';
+    ```
+
+*   **Server (Backend)**: The backend is a FastAPI application running on `http://127.0.0.1:8000`. It listens for incoming API requests, processes them, interacts with databases or other services, and sends back a JSON response.
+
+*   **CORS (Cross-Origin Resource Sharing)**: Since the frontend and backend are served from different origins (`localhost:9000` and `localhost:8000`), the backend must be configured to allow cross-origin requests. This is typically handled in FastAPI using `CORSMiddleware` to specify which frontend origins are permitted to access the API. Without this configuration, web browsers will block the frontend's requests for security reasons.
+
 ## Project Structure
 
 ```
-/
-├── app/                  # Main application source code
-│   ├── core/             # Configuration and core settings (config.py)
-│   ├── services/         # Agent logic and tool definitions (job_placement_agent_adk.py)
-│   └── ...               # Other modules like API endpoints (main.py)
-├── scripts/              # Standalone scripts for operational tasks
-│   └── populate_vector_db.py
-├── chroma_db/            # (Generated) Persistent storage for ChromaDB vector store
-├── .env                  # (Local) Environment variables
-├── .gitignore
-├── README.md             # This file
-└── requirements.txt      # Project dependencies
+agent-suite/
+├── agent_suite_backend/
+│   ├── app/                  # Main application source code
+│   ├── scripts/              # Standalone scripts (e.g., populate_vector_db.py)
+│   ├── .env                  # (Local) Environment variables
+│   ├── requirements.txt      # Python dependencies
+│   └── ...
+└── agent_suite_frontend/
+    ├── app.js                # Main script for the agent hub
+    ├── index.html            # The main agent selection page
+    ├── instructor_assistant/ # Files for the Instructor Assistant agent
+    │   ├── instructor_assistant.html
+    │   ├── instructor_assistant.js
+    │   └── instructor_assistant.css
+    └── jobplacement/         # Files for the Job Placement agent
+        ├── jobplacement_chat.html
+        ├── jobplacement_chat.js
+        └── style.css
 ```
+
 
 ## Setup and Installation
 
@@ -40,35 +65,22 @@ The application consists of two main components that work together:
 
 ```bash
 git clone <your-repository-url>
-cd agent_suite_backend
+cd agent-suite/
 ```
 
 ### 2. Create and Activate a Virtual Environment
 
 ```bash
+cd agent_suite_backend/
 python3 -m venv venv
 source venv/bin/activate
 ```
 
 ### 3. Install Dependencies
-
-*(Note: You will need to create a `requirements.txt` file containing the dependencies listed below).*
-
 ```bash
 pip install -r requirements.txt
 ```
 
-**Example `requirements.txt`:**
-```
-fastapi
-uvicorn[standard]
-sqlalchemy
-psycopg2-binary
-google-generativeai
-chromadb
-sentence-transformers
-python-dotenv
-```
 
 ### 4. Set up PostgreSQL Database
 
@@ -78,7 +90,7 @@ python-dotenv
 
 ### 5. Configure Environment Variables
 
-Create a `.env` file in the project root directory. This file will store your sensitive credentials and configuration, and it should not be committed to version control.
+Create a `.env` file in the project backendcdirectory. This file will store your sensitive credentials and configuration, and it should not be committed to version control.
 
 ```env
 GOOGLE_API_KEY="your_google_api_key_here"
@@ -95,7 +107,7 @@ python3 scripts/populate_vector_db.py
 
 This command will create the `chroma_db/` directory. This directory is included in `.gitignore` as it contains generated data that can be reproduced by running the script.
 
-## Running the Application
+## Running the backend Application
 
 Once the setup is complete, you can run the FastAPI server using Uvicorn.
 
@@ -105,6 +117,16 @@ uvicorn app.main:app --reload
 ```
 
 The API will be available at `http://127.0.0.1:8000`.
+
+## Runnin the frontend application
+
+you should run frontend as a webserver to avoid cors issue, for MVP run as simple python http server
+
+```bash
+cd agent_suite_frontend/
+python3 -m http.server 9000
+```
+
 
 ## Usage Examples
 
