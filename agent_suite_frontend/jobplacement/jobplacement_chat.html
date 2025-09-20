@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Placement Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <img src="../cal.svg" alt="CalRegional Logo" class="nav-logo">
+                <div class="nav-actions">
+                    <button id="clear-chat">Clear Chat</button>
+                    <a href="/index.html" class="back-link">&larr; Back to Agents</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Chat Window -->
+        <div id="chat-window">
+            <!-- Messages will be injected here -->
+            <div id="initial-message">
+                <div class="message message-bot">
+                    Hello! How can I help you find information about students, jobs, and placements today?
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Input -->
+        <div class="input-area">
+            <form id="chat-form">
+                <input type="text" id="message-input" placeholder="Ask about jobs, students, or salaries...">
+                <button type="submit">
+                    Send
+                </button>
+            </form>
+        </div>
+    </main>
+    <script src="jobplacement_chat.js"></script>
+</body>
+</html>

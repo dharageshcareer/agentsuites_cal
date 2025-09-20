@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="instructor_assistant.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <img src="../cal.svg" alt="CalRegional Logo" class="nav-logo">
+                <a href="/index.html" class="back-link">&larr; Back to Agents</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="upload-area">
+            <h2>Upload Feedback</h2>
+            <p>Upload a Feedback document for analysis.</p>
+            <form id="upload-form">
+                <input type="file" id="file-input" name="file" required>
+                <button type="submit">Upload and Analyze</button>
+            </form>
+        </div>
+
+        <div id="response-container" class="response-container">
+            <div id="loading-indicator" class="hidden">
+                <div class="spinner"></div>
+                <p>Analyzing document, please wait...</p>
+            </div>
+            <div id="response-output">
+                <!-- Backend response will be displayed here -->
+            </div>
+        </div>
+    </main>
+
+    <script src="instructor_assistant.js"></script>
+</body>
+</html>
