@@ -14,6 +14,7 @@ origins = [
     "http://localhost:5173",  # Default Vite dev server port
     "http://localhost:3000",  # Default Create React App dev server port
     "http://localhost:8000",  # As seen in the error message
+    "http://localhost:9000",  # As seen in the error message
 ]
 
 app.add_middleware(
