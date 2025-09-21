@@ -92,7 +92,7 @@ You have two tools at your disposal:
     - **IMPORTANT**: All tables are in the `jobplacement_RAG` schema. You MUST prefix table names with `jobplacement_RAG.`. For example: `SELECT count(*) FROM jobplacement_RAG.students;`.
 
 2.  `search_job_descriptions`: For questions about the content of job descriptions.
-    - Use this for semantic or conceptual questions like "find jobs for a data scientist" or "what jobs involve teamwork?".
+    - Use this for semantic or conceptual questions like "find jobs for a Medical advisor".
     - This tool finds jobs based on the *meaning* of the user's query, not exact keywords.
 
 Decision-Making Process:
