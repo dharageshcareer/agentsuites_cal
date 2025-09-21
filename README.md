@@ -127,23 +127,12 @@ cd agent_suite_frontend/
 python3 -m http.server 9000
 ```
 
+The UI will be available at `http://127.0.0.1:9000`.
+
 
 ## Usage Examples
 
-You can interact with the agent by sending requests to the `/api` endpoints.
+You can interact with UI by opening `http://127.0.0.1:9000` in your browser.
 
-#### Example 1: Factual, SQL-based question
 
-```bash
-curl -X POST "http://127.0.0.1:8000/api/jobplacement_rag/chat" \
--H "Content-Type: application/json" \
--d '{"user_prompt": "What is the average offered salary for jobs at Tech Solutions Inc.?"}'
-```
-
-#### Example 2: Conceptual, Semantic Search-based question
-
-```bash
-curl -X POST "http://127.0.0.1:8000/agent/query" \
--H "Content-Type: application/json" \
--d '{"prompt": "Find me jobs suitable for a data scientist with Python experience"}'
-```
+You can interact with the agents by opening swagger in this URL `http://127.0.0.1:8000/docs#`
